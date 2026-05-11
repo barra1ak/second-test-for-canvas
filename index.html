@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ag Finance Decision Lab</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial, sans-serif;
+  background:#eef3ea;
+  color:#243024;
+}
+#agModule{
+  max-width:1050px;
+  margin:24px auto;
+  background:white;
+  border-radius:24px;
+  overflow:hidden;
+  box-shadow:0 14px 40px rgba(0,0,0,.13);
+}
+.hero{
+  background:linear-gradient(135deg,#234f2f,#7cad45);
+  color:white;
+  padding:38px 28px;
+  text-align:center;
+}
+.hero h1{margin:0;font-size:2.35rem;}
+.hero p{font-size:1.08rem;max-width:760px;margin:14px auto 0;}
+.body{padding:28px;}
+.dashboard{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:12px;
+  margin-bottom:24px;
+}
+.stat{
+  background:#f5f8f1;
+  border:1px solid #d9e6d0;
+  border-radius:16px;
+  padding:16px;
+  text-align:center;
+}
+.stat span{font-size:.85rem;color:#5b6758;}
+.stat strong{display:block;font-size:1.35rem;color:#285c34;margin-top:5px;}
+.card{display:none;}
+.card.active{display:block;}
+.section-title{
+  font-size:1.5rem;
+  font-weight:bold;
+  margin-bottom:10px;
+}
+.briefing{
+  background:#f8faf5;
+  border:1px solid #dfe8d8;
+  border-radius:18px;
+  padding:20px;
+  margin:18px 0;
+}
+.briefing-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+.info-box{
+  background:white;
+  border-radius:14px;
+  border:1px solid #e2eadc;
+  padding:15px;
+}
+.info-box h4{margin:0 0 8px;color:#285c34;}
+.resource-row{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+  margin:18px 0;
+}
+.resource-btn{
+  background:#fff7df;
+  border:1px solid #e4cb83;
+  border-radius:14px;
+  padding:14px;
+  cursor:pointer;
+  font-weight:bold;
+}
+.resource-box{
+  display:none;
+  background:#fffaf0;
+  border-left:5px solid #c99528;
+  padding:16px;
+  border-radius:12px;
+  margin-bottom:12px;
+}
+.decision{
+  width:100%;
+  text-align:left;
+  background:#f1f5ef;
+  border:2px solid transparent;
+  border-radius:16px;
+  padding:18px;
+  margin:12px 0;
+  cursor:pointer;
+}
+.decision:hover{border-color:#7cad45;}
+.decision strong{display:block;font-size:1.05rem;margin-bottom:6px;}
+.decision small{display:block;color:#526052;line-height:1.45;}
+.feedback{
+  display:none;
+  background:#eaf5e4;
+  border-radius:16px;
+  padding:18px;
+  margin-top:18px;
+}
+.next-btn{
+  display:none;
+  margin-top:18px;
+  background:#285c34;
+  color:white;
+  border:0;
+  border-radius:12px;
+  padding:14px 22px;
+  font-size:1rem;
+  cursor:pointer;
+}
+.results{
+  background:#f5f8f1;
+  border-radius:20px;
+  padding:26px;
+}
+.pill{
+  display:inline-block;
+  background:#285c34;
+  color:white;
+  border-radius:999px;
+  padding:8px 13px;
+  margin:5px;
+  font-size:.9rem;
+}
+@media(max-width:850px){
+  #agModule{margin:0;border-radius:0;}
+  .dashboard,.briefing-grid,.resource-row{grid-template-columns:1fr;}
+  .hero h1{font-size:1.8rem;}
+  .body{padding:22px;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="agModule">
+  <div class="hero">
+    <h1>Ag Finance Decision Lab</h1>
+    <p>Can you guide a farming operation through a season of rising costs, weather pressure, and market uncertainty?</p>
+  </div>
+
+  <div class="body">
+
+    <div class="dashboard">
+      <div class="stat"><span>Cash Position</span><strong id="cash">$250,000</strong></div>
+      <div class="stat"><span>Profit Outlook</span><strong id="profit">$0</strong></div>
+      <div class="stat"><span>Risk Exposure</span><strong id="risk">Medium</strong></div>
+      <div class="stat"><span>Confidence</span><strong id="confidence">50%</strong></div>
+    </div>
+
+    <!-- SCENARIO 1 -->
+    <div class="card active">
+      <div class="section-title">Scenario 1: Input Cost Shock</div>
+
+      <div class="briefing">
+        <p><strong>Situation:</strong> Fertilizer prices jumped 20% after global supply concerns. You need to decide whether to buy now, split the purchase, or wait.</p>
+
+        <div class="briefing-grid">
+          <div class="info-box">
+            <h4>Financial Context</h4>
+            <p>You have $250,000 in operating cash. Fertilizer will likely cost $35,000–$48,000 depending on timing.</p>
+          </div>
+          <div class="info-box">
+            <h4>Strategic Tension</h4>
+            <p>Buying now protects against further price increases, but reduces cash available for fuel, labor, and repairs.</p>
+          </div>
+          <div class="info-box">
+            <h4>Operational Risk</h4>
+            <p>Under-applying fertilizer may save money short term, but could reduce yield and revenue at harvest.</p>
+          </div>
+          <div class="info-box">
+            <h4>Business Lesson</h4>
+            <p>In agriculture, “saving money” is not always the same as protecting profitability.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="resource-row">
+        <button class="resource-btn" data-resource="r1">Advisor: Agronomist</button>
+        <button class="resource-btn" data-resource="r2">Advisor: CFO</button>
+        <button class="resource-btn" data-resource="r3">Term: Input Costs</button>
+      </div>
+
+      <div class="resource-box" id="r1">The agronomist warns that reducing fertilizer too aggressively could lower yield potential, especially if weather conditions are favorable later.</div>
+      <div class="resource-box" id="r2">The CFO recommends protecting cash flow, but says a partial lock-in may reduce exposure without draining liquidity.</div>
+      <div class="resource-box" id="r3">Input costs are expenses required to produce a crop: seed, fertilizer, crop protection, fuel, labor, repairs, financing, and equipment.</div>
+
+      <button class="decision" data-score="8" data-cash="-28000" data-profit="12000" data-risk="Medium" data-confidence="15">
+        <strong>Split the purchase: lock in 60% now, leave 40% flexible.</strong>
+        <small>Balanced approach. Protects against further increases while preserving some cash flexibility.</small>
+      </button>
+
+      <button class="decision" data-score="6" data-cash="-42000" data-profit="16000" data-risk="Lower" data-confidence="10">
+        <strong>Buy all fertilizer now.</strong>
+        <small>Reduces price risk but creates cash pressure for the rest of the season.</small>
+      </button>
+
+      <button class="decision" data-score="3" data-cash="-10000" data-profit="-18000" data-risk="High" data-confidence="-10">
+        <strong>Cut fertilizer rates to protect cash.</strong>
+        <small>Improves short-term cash position but increases yield and revenue risk.</small>
+      </button>
+
+      <div class="feedback"></div>
+      <button class="next-btn">Next Scenario</button>
+    </div>
+
+    <!-- SCENARIO 2 -->
+    <div class="card">
+      <div class="section-title">Scenario 2: Weather Delay</div>
+
+      <div class="briefing">
+        <p><strong>Situation:</strong> Heavy rain delays planting by two weeks. The team is behind schedule and equipment/labor costs are rising.</p>
+
+        <div class="briefing-grid">
+          <div class="info-box">
+            <h4>Financial Context</h4>
+            <p>Every delay compresses the season. More work has to happen in less time, often increasing overtime, repairs, and fuel costs.</p>
+          </div>
+          <div class="info-box">
+            <h4>Revenue Risk</h4>
+            <p>Late planting may reduce yield potential. Lower yield means lower revenue even if market prices are strong.</p>
+          </div>
+          <div class="info-box">
+            <h4>Decision Pressure</h4>
+            <p>You can spend more to stay on schedule, cut costs, or switch plans entirely.</p>
+          </div>
+          <div class="info-box">
+            <h4>Business Lesson</h4>
+            <p>Timing is a financial variable in agriculture. A calendar problem can quickly become a margin problem.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="resource-row">
+        <button class="resource-btn" data-resource="r4">Advisor: Operations</button>
+        <button class="resource-btn" data-resource="r5">Advisor: Sales</button>
+        <button class="resource-btn" data-resource="r6">Term: Yield Risk</button>
+      </div>
+
+      <div class="resource-box" id="r4">Operations recommends overtime and equipment coordination to protect the planting window, even though it increases near-term costs.</div>
+      <div class="resource-box" id="r5">Sales notes that customers and partners often underestimate how quickly weather changes financial plans.</div>
+      <div class="resource-box" id="r6">Yield risk is the possibility that crop output will fall below expectations, reducing revenue and profitability.</div>
+
+      <button class="decision" data-score="9" data-cash="-18000" data-profit="22000" data-risk="Medium" data-confidence="20">
+        <strong>Spend more now to protect yield potential.</strong>
+        <small>Higher short-term cost, but protects the biggest revenue driver: yield.</small>
+      </button>
+
+      <button class="decision" data-score="4" data-cash="-6000" data-profit="-12000" data-risk="High" data-confidence="-5">
+        <strong>Freeze spending until conditions improve.</strong>
+        <small>Preserves cash, but increases the risk of missing the planting window.</small>
+      </button>
+
+      <button class="decision" data-score="6" data-cash="-10000" data-profit="5000" data-risk="Medium" data-confidence="5">
+        <strong>Shift acres into a lower-cost backup plan.</strong>
+        <small>Reduces exposure, but may limit upside if the season recovers.</small>
+      </button>
+
+      <div class="feedback"></div>
+      <button class="next-btn">Next Scenario</button>
+    </div>
+
+    <!-- SCENARIO 3 -->
+    <div class="card">
+      <div class="section-title">Scenario 3: Market Opportunity</div>
+
+      <div class="briefing">
+        <p><strong>Situation:</strong> Corn prices rise before harvest. You can lock in a price, sell later, or store grain and wait.</p>
+
+        <div class="briefing-grid">
+          <div class="info-box">
+            <h4>Financial Context</h4>
+            <p>Higher prices create opportunity, but prices can reverse quickly based on supply, demand, weather, and export news.</p>
+          </div>
+          <div class="info-box">
+            <h4>Cash Flow Need</h4>
+            <p>You still need to cover harvest expenses, loan payments, repairs, and year-end obligations.</p>
+          </div>
+          <div class="info-box">
+            <h4>Storage Tradeoff</h4>
+            <p>Storing grain can capture higher prices later, but storage, shrink, quality risk, and interest costs reduce gains.</p>
+          </div>
+          <div class="info-box">
+            <h4>Business Lesson</h4>
+            <p>Risk management is not about predicting perfectly. It is about protecting the business from bad outcomes.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="resource-row">
+        <button class="resource-btn" data-resource="r7">Advisor: Grain Marketer</button>
+        <button class="resource-btn" data-resource="r8">Advisor: Banker</button>
+        <button class="resource-btn" data-resource="r9">Term: Hedging</button>
+      </div>
+
+      <div class="resource-box" id="r7">The grain marketer recommends locking in a portion of the crop to protect profit while leaving some upside open.</div>
+      <div class="resource-box" id="r8">The banker likes decisions that improve certainty because predictable cash flow supports repayment and future borrowing.</div>
+      <div class="resource-box" id="r9">Hedging is a way to reduce price risk by locking in or protecting a price for part of expected production.</div>
+
+      <button class="decision" data-score="9" data-cash="52000" data-profit="48000" data-risk="Lower" data-confidence="20">
+        <strong>Lock in pricing on 50% of expected crop.</strong>
+        <small>Protects profit while keeping some upside if the market rises further.</small>
+      </button>
+
+      <button class="decision" data-score="5" data-cash="72000" data-profit="28000" data-risk="Medium" data-confidence="5">
+        <strong>Sell aggressively now.</strong>
+        <small>Improves cash certainty, but may limit upside if prices continue rising.</small>
+      </button>
+
+      <button class="decision" data-score="3" data-cash="0" data-profit="-8000" data-risk="High" data-confidence="-10">
+        <strong>Store everything and wait for a better price.</strong>
+        <small>Could pay off, but creates cash pressure and exposes the operation to market reversal.</small>
+      </button>
+
+      <div class="feedback"></div>
+      <button class="next-btn finish">Finish Lab</button>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="card">
+      <div class="results">
+        <h2>Season Debrief</h2>
+        <p><strong>Final cash position:</strong> <span id="finalCash"></span></p>
+        <p><strong>Profit outlook:</strong> <span id="finalProfit"></span></p>
+        <p><strong>Decision quality:</strong> <span id="finalScore"></span>/27</p>
+        <p id="finalMessage"></p>
+
+        <h3>What this module teaches</h3>
+        <span class="pill">Cash flow</span>
+        <span class="pill">Profitability</span>
+        <span class="pill">Commodity risk</span>
+        <span class="pill">Timing pressure</span>
+        <span class="pill">Tradeoff thinking</span>
+        <span class="pill">Ag decision-making</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function(){
+  let step = 0;
+  let score = 0;
+  let cash = 250000;
+  let profit = 0;
+  let confidence = 50;
+
+  const cards = document.querySelectorAll(".card");
+
+  function money(n){
+    return "$" + n.toLocaleString();
+  }
+
+  document.querySelectorAll(".resource-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      const box = document.getElementById(btn.dataset.resource);
+      box.style.display = box.style.display === "block" ? "none" : "block";
+    });
+  });
+
+  document.querySelectorAll(".decision").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      const card = btn.closest(".card");
+      if(card.dataset.done === "true") return;
+      card.dataset.done = "true";
+
+      const points = Number(btn.dataset.score);
+      cash += Number(btn.dataset.cash);
+      profit += Number(btn.dataset.profit);
+      confidence += Number(btn.dataset.confidence);
+      score += points;
+
+      if(confidence > 100) confidence = 100;
+      if(confidence < 0) confidence = 0;
+
+      document.getElementById("cash").textContent = money(cash);
+      document.getElementById("profit").textContent = money(profit);
+      document.getElementById("risk").textContent = btn.dataset.risk;
+      document.getElementById("confidence").textContent = confidence + "%";
+
+      btn.style.borderColor = "#285c34";
+      btn.style.background = "#e5f2df";
+
+      card.querySelectorAll(".decision").forEach(function(other){
+        other.disabled = true;
+        if(other !== btn) other.style.opacity = ".55";
+      });
+
+      const feedback = card.querySelector(".feedback");
+
+      if(points >= 8){
+        feedback.innerHTML = "<strong>Strategic choice.</strong><br>You considered both short-term pressure and long-term business impact.";
+      } else if(points >= 5){
+        feedback.innerHTML = "<strong>Workable choice.</strong><br>This decision solves part of the problem, but leaves some exposure.";
+      } else {
+        feedback.innerHTML = "<strong>High-risk choice.</strong><br>This may help one metric, but creates serious pressure elsewhere.";
+      }
+
+      feedback.style.display = "block";
+      card.querySelector(".next-btn").style.display = "inline-block";
+    });
+  });
+
+  document.querySelectorAll(".next-btn").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      cards[step].classList.remove("active");
+      step++;
+      cards[step].classList.add("active");
+
+      if(btn.classList.contains("finish")){
+        document.getElementById("finalCash").textContent = money(cash);
+        document.getElementById("finalProfit").textContent = money(profit);
+        document.getElementById("finalScore").textContent = score;
+
+        let message = "";
+
+        if(score >= 23){
+          message = "Excellent work. You managed uncertainty by balancing cash flow, profit potential, and risk protection.";
+        } else if(score >= 15){
+          message = "You made it through the season, but a few decisions increased exposure. This is exactly why ag finance requires tradeoff thinking.";
+        } else {
+          message = "This was a tough season. The big takeaway: in agriculture, the cheapest decision is not always the safest or most profitable decision.";
+        }
+
+        document.getElementById("finalMessage").textContent = message;
+      }
+
+      window.scrollTo({
+        top: document.getElementById("agModule").offsetTop,
+        behavior:"smooth"
+      });
+    });
+  });
+});
+</script>
+
+</body>
+</html>
